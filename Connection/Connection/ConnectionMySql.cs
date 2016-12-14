@@ -4,32 +4,26 @@
 //  
 // Copyrights (c) 2014 MANAGER INC. All rights reserved.
 
-using System;
 using System.Data;
 
-using Connection;
-
-using MySql.Data.MySqlClient;
-
-namespace ConnectionGit
+namespace Connection
 {
     internal sealed class ConnectionMySql : Connection
     {
         private static MySqlConnection _connection;
-        private static Boolean _connectionIsStarted;
 
-        private ConnectionMySql()
+        private static void MySql()
         {
             _connection = new MySqlConnection(Const.connectionString);
             _connection.Open();
-            _connectionIsStarted = true;
+            ConnectionIsStarted = true;
         }
 
         private static MySqlConnection GetConnection()
         {
-            if (!_connectionIsStarted)
+            if (!ConnectionIsStarted)
             {
-                new ConnectionMySql();
+               MySql();
             }
             return _connection;
         }

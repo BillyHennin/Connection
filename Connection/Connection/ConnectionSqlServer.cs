@@ -4,31 +4,27 @@
 //  
 // Copyrights (c) 2014 MANAGER INC. All rights reserved.
 
-using System;
 using System.Data;
 using System.Data.SqlClient;
 
-using Connection;
-
-namespace ConnectionGit
+namespace Connection
 {
     internal sealed class ConnectionSqlServer : Connection
     {
         private static SqlConnection _connection;
-        private static Boolean _connectionIsStarted;
 
-        private ConnectionSqlServer()
+        private static void SqlServer()
         {
             _connection = new SqlConnection(Const.connectionString);
             _connection.Open();
-            _connectionIsStarted = true;
+            ConnectionIsStarted = true;
         }
 
         private static SqlConnection GetConnection()
         {
-            if (!_connectionIsStarted)
+            if (!ConnectionIsStarted)
             {
-                new ConnectionSqlServer();
+                SqlServer();
             }
             return _connection;
         }

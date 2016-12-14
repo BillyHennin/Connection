@@ -7,29 +7,24 @@
 using System;
 using System.Data;
 
-using Connection;
-
-using Oracle.ManagedDataAccess.Client;
-
-namespace ConnectionGit
+namespace Connection
 {
     internal sealed class ConnectionOracle : Connection
     {
         private static OracleConnection _connection;
-        private static Boolean _connectionIsStarted;
 
-        private ConnectionOracle()
+        private static void Oracle()
         {
             _connection = new OracleConnection(Const.connectionString);
             _connection.Open();
-            _connectionIsStarted = true;
+            ConnectionIsStarted = true;
         }
 
         private static OracleConnection GetConnection()
         {
-            if (!_connectionIsStarted)
+            if (!ConnectionIsStarted)
             {
-                new ConnectionOracle();
+                Oracle();
             }
             return _connection;
         }
